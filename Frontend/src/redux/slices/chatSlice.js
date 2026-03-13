@@ -1,115 +1,81 @@
 import { createSlice } from "@reduxjs/toolkit"
 
 const initialState = {
+  messages: [],
+  chatId: null,
   chats: [],
-  currentChat: null
+  messageCount: 0,
+  isLoggedIn: false
 }
 
 const chatSlice = createSlice({
+  messages:[],
   name: "chat",
   initialState,
   reducers: {
 
-    setCurrentChat: (state, action) => {
-      state.currentChat = action.payload
+    // ADD MESSAGE
+    addMessage: (state, action) => {
+      state.messages.push(action.payload)
     },
 
+    // SET CHAT ID
+    setChatId: (state, action) => {
+      state.chatId = action.payload
+    },
+
+    // MESSAGE LIMIT
+    incrementMessageCount: (state) => {
+      state.messageCount += 1
+    },
+
+    // LOGIN STATE
+    setLogin: (state, action) => {
+      state.isLoggedIn = action.payload
+    },
+
+    // NEW CHAT
+    createNewChat: (state) => {
+      state.messages = []
+      state.chatId = null
+    },
+
+    // LOAD SIDEBAR CHATS
+    setChats: (state, action) => {
+      state.chats = action.payload
+    },
+
+    // SAME AS setChats (HOME USE)
     loadChats: (state, action) => {
       state.chats = action.payload
-      if (action.payload.length > 0) {
-        state.currentChat = action.payload[0].id
-      }
     },
 
- addUserMessage: (state, action) => {
-
-  let chat = state.chats.find(
-    c => String(c.id) === String(state.currentChat)
-  )
-
-  // अगर chat नहीं है → new chat create
-  if (!chat) {
-
-    const newChat = {
-      id: Date.now().toString(),
-      title: action.payload,
-      messages: [
-        { role: "user", text: action.payload }
-      ]
-    }
-
-    state.chats.unshift(newChat)
-    state.currentChat = newChat.id
-
-  } else {
-
-    chat.messages.push({
-      role: "user",
-      text: action.payload
-    })
-
-    if (chat.messages.length === 1) {
-      chat.title = action.payload
-    }
-
-  }
-
-},
-
-    addAIMessage: (state, action) => {
-
-      const chat = state.chats.find(
-        c => String(c.id) === String(state.currentChat)
-      )
-
-      if (chat) {
-
-        chat.messages.push({
-          role: "ai",
-          text: action.payload
-        })
-
-      }
-
+    // OPEN CHAT
+    setCurrentChat: (state, action) => {
+      state.messages = action.payload.messages
+      state.chatId = action.payload._id
     },
 
-    createNewChat: (state) => {
-
-      const newChat = {
-        id: null,
-        title: "New Chat",
-        messages: []
-      }
-
-      state.chats.unshift(newChat)
-      state.currentChat = null
-
-    },
-
+    // DELETE CHAT
     deleteChat: (state, action) => {
-
       state.chats = state.chats.filter(
-        chat => String(chat.id) !== String(action.payload)
+        (chat) => chat._id !== action.payload
       )
-
-      if (state.chats.length > 0) {
-        state.currentChat = state.chats[0].id
-      } else {
-        state.currentChat = null
-      }
-
     }
 
   }
 })
 
 export const {
-  setCurrentChat,
-  loadChats,
-  addUserMessage,
-  addAIMessage,
+  addMessage,
+  setChatId,
+  incrementMessageCount,
+  setLogin,
   createNewChat,
-  deleteChat
+  setChats,
+  setCurrentChat,
+  deleteChat,
+  loadChats
 } = chatSlice.actions
 
 export default chatSlice.reducer

@@ -1,12 +1,13 @@
 import Chat from "../models/Chat.js"
 import { askGroq } from "../services/groqService.js"
 
-// send message + save chat
 export const chatController = async (req, res) => {
-  console.log("REQUEST BODY:", req.body);   // <-- add this
+
   try {
 
     const { messages, chatId } = req.body
+
+    const userId = req.user
 
     const userMessage = messages[messages.length - 1]
 
@@ -23,16 +24,18 @@ export const chatController = async (req, res) => {
 
       chat = await Chat.findById(chatId)
 
-      if (chat) {
-        chat.messages.push(userMessage)
-        chat.messages.push(aiMessage)
-        await chat.save()
-      }
+      chat.messages.push(userMessage)
+      chat.messages.push(aiMessage)
 
-    } else {
+      await chat.save()
+
+    }
+
+    else {
 
       chat = new Chat({
-        title: userMessage.text,
+        userId,
+        title: userMessage.text.substring(0, 40),
         messages: [userMessage, aiMessage]
       })
 
@@ -45,33 +48,25 @@ export const chatController = async (req, res) => {
       chatId: chat._id
     })
 
-  } catch (error) {
-
-    console.log("AI ERROR:", error)
-
-    res.status(500).json({
-      error: "AI error"
-    })
-
   }
-}
 
-
-// get all chats
-export const getChats = async (req, res) => {
-
-  try {
-
-    const chats = await Chat.find().sort({ createdAt: -1 })
-
-    res.json(chats)
-
-  } catch (error) {
+  catch (error) {
 
     res.status(500).json({
       error: error.message
     })
 
   }
+
+}
+
+
+export const getChats = async (req, res) => {
+
+  const userId = req.user
+
+  const chats = await Chat.find({ userId }).sort({ createdAt: -1 })
+
+  res.json(chats)
 
 }

@@ -1,110 +1,55 @@
+
+
+//test
+
 import { useDispatch, useSelector } from "react-redux"
+import { setCurrentChat } from "../redux/slices/chatSlice"
 
-import {
-  createNewChat,
-  setCurrentChat,
-  deleteChat
-} from "../redux/slices/chatSlice"
+const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
 
-import { deleteChat as deleteChatAPI } from "../api/chatApi"
+  const { chats } = useSelector((state) => state.chat)
 
-function Sidebar(){
+  //test
+  const dispatch = useDispatch()
 
-const dispatch = useDispatch()
+  return (
 
-const { chats, currentChat } = useSelector((state)=>state.chat)
+    <div
+      className={`fixed top-0 left-0 h-full w-64 bg-[#020617] p-4 transition-transform duration-300 
+      ${sidebarOpen ? "translate-x-0" : "-translate-x-full"}`}
+    >
 
-return(
+      <button
+        onClick={() => setSidebarOpen(false)}
+        className="mb-4 text-gray-400"
+      >
+        Close
+      </button>
 
-<div className="w-64 bg-slate-900 border-r border-slate-800 p-4 flex flex-col">
+      <button className="w-full bg-purple-600 py-2 rounded mb-4">
+        + New Chat
+      </button>
 
-{/* New Chat */}
+      {chats.length === 0 && (
+        <p className="text-gray-400">No chats yet</p>
+      )}
 
-<button
-onClick={()=>dispatch(createNewChat())}
-className="bg-indigo-600 p-2 rounded-lg mb-4 hover:bg-indigo-500 transition text-white"
->
-+ New Chat
-</button>
+      {chats.map((chat) => (
 
+        <div
+          key={chat._id}
+          //test
+          onClick={() => dispatch(setCurrentChat(chat))}
+          className="p-2 hover:bg-gray-700 rounded cursor-pointer"
+        >
+          {chat.title}
+        </div>
 
-{/* Chat List */}
+      ))}
 
-<div className="flex-1 overflow-y-auto space-y-2">
+    </div>
 
-{chats.length === 0 && (
-
-<p className="text-gray-400 text-sm">
-No chats yet
-</p>
-
-)}
-
-{chats.map((chat)=>{
-
-const active = String(chat.id) === String(currentChat)
-
-return(
-
-<div
-key={chat.id}
-onClick={()=>dispatch(setCurrentChat(chat.id))}
-className={`flex justify-between items-center p-2 rounded-lg cursor-pointer text-sm transition
-
-${active
-? "bg-slate-700"
-: "hover:bg-slate-800"
-}
-`}
->
-
-{/* Chat Title */}
-
-<span className="truncate text-white">
-
-{chat.title || "New Chat"}
-
-</span>
-
-
-{/* Delete Button */}
-
-<button
-onClick={async(e)=>{
-
-e.stopPropagation()
-
-try{
-
-await deleteChatAPI(chat.id)
-
-dispatch(deleteChat(chat.id))
-
-}catch(err){
-
-console.log("Delete error:",err)
-
-}
-
-}}
-className="text-red-400 hover:text-red-500 ml-2"
->
-
-❌
-
-</button>
-
-</div>
-
-)
-
-})}
-
-</div>
-
-</div>
-
-)
+  )
 
 }
 

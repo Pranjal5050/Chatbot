@@ -1,86 +1,74 @@
 import { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
+import axios from "axios"
+import { addMessage, setChatId } from "../redux/slices/chatSlice"
 
-import {
-  addUserMessage,
-  addAIMessage,
-  setCurrentChat
-} from "../redux/slices/chatSlice"
+const InputBox = () => {
 
-import { sendMessageToAI } from "../api/chatApi"
-
-function InputBox() {
-
-  const [message, setMessage] = useState("")
-
+  const [input, setInput] = useState("")
   const dispatch = useDispatch()
 
-  const { chats, currentChat } = useSelector(state => state.chat)
+  const { messages, chatId } = useSelector((state) => state.chat)
 
-  const chat = chats.find(
-    c => String(c.id) === String(currentChat)
-  )
+  const sendMessage = async () => {
 
-  const messages = chat ? chat.messages : []
+    if (!input.trim()) return
 
-  const handleSend = async () => {
+    const userMessage = {
+      role: "user",
+      text: input
+    }
 
-    if (!message.trim()) return
+    dispatch(addMessage(userMessage))
 
-    const userMessage = message
-    setMessage("")
+    const updatedMessages = [...messages, userMessage]
 
-    // show user message instantly
-    dispatch(addUserMessage(userMessage))
+    setInput("")
 
-    const updatedMessages = [
-      ...messages,
-      { role: "user", text: userMessage }
-    ]
+    const token = localStorage.getItem("token")
 
-    try {
-
-      const data = await sendMessageToAI(
-        updatedMessages,
-        currentChat || null
-      )
-
-      // set backend chat id
-      if (data?.chatId) {
-        dispatch(setCurrentChat(data.chatId))
+    const res = await axios.post(
+      "http://localhost:5000/api/chat",
+      {
+        messages: updatedMessages,
+        chatId
+      },
+      {
+        headers: {
+          Authorization: token
+        }
       }
+    )
 
-      // show AI reply
-      if (data?.reply) {
-        dispatch(addAIMessage(data.reply))
-      }
+    const aiMessage = {
+      role: "ai",
+      text: res.data.reply
+    }
 
-    } catch (error) {
+    dispatch(addMessage(aiMessage))
 
-      console.log("AI ERROR:", error)
-
-      dispatch(addAIMessage("AI Error"))
-
+    if (!chatId) {
+      dispatch(setChatId(res.data.chatId))
     }
 
   }
 
   return (
 
-    <div className="p-4 border-t border-slate-800">
+    <div className="p-4 border-t border-gray-700 bg-[#0f172a]">
 
-      <div className="flex gap-2">
+      <div className="flex gap-2 max-w-3xl mx-auto">
 
         <input
-          className="flex-1 bg-slate-900 text-white p-2 rounded"
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
           placeholder="Ask anything..."
+          className="flex-1 bg-[#020617] border border-gray-700 p-3 rounded-lg"
         />
 
         <button
-          onClick={handleSend}
-          className="bg-indigo-600 px-4 rounded text-white"
+          onClick={sendMessage}
+          className="bg-black px-6 rounded-lg"
         >
           Send
         </button>

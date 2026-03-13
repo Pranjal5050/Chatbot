@@ -1,14 +1,13 @@
 import express from "express"
 
-import {
-  chatController,
-  getChats
-} from "../controllers/chatController.js"
+import { chatController, getChats } from "../controllers/chatController.js"
+
+import { protect } from "../middlewares/authMiddlewares.js"
 
 const router = express.Router()
 
-router.post("/", chatController)
+router.post("/chat", protect, chatController)
 
-router.get("/", getChats)
+router.get("/chats", protect, getChats)
 
 export default router

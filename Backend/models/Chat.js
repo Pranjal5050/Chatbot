@@ -1,15 +1,20 @@
 import mongoose from "mongoose"
 
+const messageSchema = new mongoose.Schema({
+  role: String,
+  text: String
+})
+
 const chatSchema = new mongoose.Schema({
+
+  userId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User"
+  },
 
   title: String,
 
-  messages: [
-    {
-      role: String,
-      text: String
-    }
-  ]
+  messages: [messageSchema]
 
 }, { timestamps: true })
 
