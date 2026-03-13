@@ -1,7 +1,3 @@
-
-
-//test
-
 import { useDispatch, useSelector } from "react-redux"
 import { setCurrentChat } from "../redux/slices/chatSlice"
 import { createNewChat } from "../redux/slices/chatSlice"
@@ -10,10 +6,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
 
   const { chats } = useSelector((state) => state.chat)
 
-  //test
   const dispatch = useDispatch()
-
-  //tests
 
   const handleNewChat = () => {
 
@@ -22,9 +15,6 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
     setSidebarOpen(false)
 
   }
-
-
-
   return (
 
     <div
@@ -53,7 +43,6 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
 
         <div
           key={chat._id}
-          //test
           onClick={() => dispatch(setCurrentChat(chat))}
           className="p-2 hover:bg-gray-700 rounded cursor-pointer"
         >

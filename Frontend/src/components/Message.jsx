@@ -9,8 +9,8 @@ function Message({ role, text }) {
       <div
         className={`px-4 py-3 rounded-xl max-w-md text-sm text-white
         ${isUser
-          ? "bg-gradient-to-r from-indigo-500 to-purple-600"
-          : "bg-slate-800"}`}
+            ? "bg-gradient-to-r from-indigo-500 to-purple-600"
+            : "bg-slate-800"}`}
       >
 
         {text}

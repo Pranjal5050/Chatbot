@@ -1,51 +1,9 @@
-// import ChatWindow from "../components/ChatWindow"
-// import InputBox from "../components/InputBox"
-// import Sidebar from "../components/Sidebar"
-
-// const Home = ({ sidebarOpen, setSidebarOpen }) => {
-
-//   return (
-
-//     <div className="flex flex-col flex-1 h-screen">
-
-//       {/* Top Bar */}
-//       <div className="p-3 border-b border-gray-700">
-
-//         <button
-//           onClick={() => setSidebarOpen(true)}
-//           className="text-white"
-//         >
-//           ☰
-//         </button>
-
-//       </div>
-
-//       <Sidebar
-//         sidebarOpen={sidebarOpen}
-//         setSidebarOpen={setSidebarOpen}
-//       />
-
-//       {/* Chat messages */}
-//       <ChatWindow />
-
-//       {/* Input */}
-//       <InputBox />
-
-//     </div>
-
-//   )
-
-// }
-
-// export default Home
-
 import { useState } from "react"
 
 import Sidebar from "../components/Sidebar"
 import ChatWindow from "../components/ChatWindow"
 import InputBox from "../components/InputBox"
 
-//test
 import { useEffect } from "react"
 import { useDispatch } from "react-redux"
 import { setChats, setCurrentChat } from "../redux/slices/chatSlice"
@@ -66,7 +24,6 @@ const Home = () => {
 
             dispatch(setChats(chats))
 
-            // ⭐ refresh hone par latest chat open
             if (chats.length > 0) {
                 dispatch(setCurrentChat(chats[0]))
             }
@@ -86,8 +43,6 @@ const Home = () => {
                 setSidebarOpen={setSidebarOpen}
             />
 
-            {/* <div className="flex flex-col flex-1"> */}
-            {/* Main chat area */}
             <div
                 className={`flex flex-col flex-1 transition-all duration-300
                 ${sidebarOpen ? "ml-64" : "ml-0"}`}

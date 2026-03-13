@@ -2,6 +2,7 @@ import { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import axios from "axios"
 import { addMessage, setChatId } from "../redux/slices/chatSlice"
+import { startVoiceInput } from "../utils/voiceInput"
 
 const InputBox = () => {
 
@@ -66,9 +67,17 @@ const InputBox = () => {
           className="flex-1 bg-[#020617] border border-gray-700 p-3 rounded-lg"
         />
 
+        {/* 🎤 Voice Button */}
+        <button
+          onClick={() => startVoiceInput(setInput)}
+          className="bg-gray-700 px-4 rounded-xl cursor-pointer"
+        >
+          🎤
+        </button>
+
         <button
           onClick={sendMessage}
-          className="bg-black px-6 rounded-lg"
+          className="bg-black px-6 rounded-lg cursor-pointer"
         >
           Send
         </button>
