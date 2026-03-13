@@ -86,17 +86,24 @@ const Home = () => {
                 setSidebarOpen={setSidebarOpen}
             />
 
-            <div className="flex flex-col flex-1">
+            {/* <div className="flex flex-col flex-1"> */}
+            {/* Main chat area */}
+            <div
+                className={`flex flex-col flex-1 transition-all duration-300
+                ${sidebarOpen ? "ml-64" : "ml-0"}`}
+            >
 
                 {/* Top Bar */}
                 <div className="p-3 border-b border-gray-700">
 
-                    <button
-                        onClick={() => setSidebarOpen(true)}
-                        className="text-white"
-                    >
-                        ☰
-                    </button>
+                    {!sidebarOpen && (
+                        <button
+                            onClick={() => setSidebarOpen(true)}
+                            className="text-white text-xl"
+                        >
+                            ☰
+                        </button>
+                    )}
 
                 </div>
 

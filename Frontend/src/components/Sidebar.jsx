@@ -4,6 +4,7 @@
 
 import { useDispatch, useSelector } from "react-redux"
 import { setCurrentChat } from "../redux/slices/chatSlice"
+import { createNewChat } from "../redux/slices/chatSlice"
 
 const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
 
@@ -11,6 +12,18 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
 
   //test
   const dispatch = useDispatch()
+
+  //tests
+
+  const handleNewChat = () => {
+
+    dispatch(createNewChat())
+
+    setSidebarOpen(false)
+
+  }
+
+
 
   return (
 
@@ -26,7 +39,9 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
         Close
       </button>
 
-      <button className="w-full bg-purple-600 py-2 rounded mb-4">
+      <button className="w-full bg-purple-600 py-2 rounded mb-4"
+        onClick={handleNewChat}
+      >
         + New Chat
       </button>
 
