@@ -5,6 +5,7 @@ import { imageChat } from "../controllers/imageChatController.js"
 
 import { protect } from "../middlewares/authMiddlewares.js"
 import upload from "../middlewares/upload.js"
+import { deleteChat } from "../controllers/chatController.js"
 
 const router = express.Router()
 
@@ -21,5 +22,12 @@ router.post(
   upload.single("image"),
   imageChat
 )
+
+
+
+
+
+// delete chat
+router.delete("/chat/:id", protect, deleteChat)
 
 export default router

@@ -1,15 +1,14 @@
 import { useSelector } from "react-redux"
 import { speakText } from "../utils/typeText/"
-import {   RiVolumeUpLine } from "@remixicon/react";
+import { RiVolumeUpLine } from "@remixicon/react";
+
 
 const ChatWindow = () => {
-
   const { messages = [] } = useSelector((state) => state.chat)
 
   return (
-// flex-1 overflow-y-auto
-    <div className="p-4 md:p-6 flex justify-center">
-
+    // flex-1 overflow-y-auto
+    <div className="p-4 md:p-6 flex-1 pb-32 md:pb-32 flex justify-center">
       <div className="w-full md:w-full max-w-3xl">
 
         {messages.length === 0 && (
@@ -46,11 +45,10 @@ const ChatWindow = () => {
                 </div>
               </div>
             )} */}
+            {msg.role === "ai" && (
+              <div className="flex justify-start w-full">
 
-  {msg.role === "ai" && (
-  <div className="flex justify-start w-full">
-
-    <div className=" 
+                <div className=" 
       relative
       bg-[#1e293b46]
       text-white
@@ -62,19 +60,19 @@ const ChatWindow = () => {
       whitespace-pre-wrap
     ">
 
-      <h1 className="pr-8">{msg.text}</h1>
+                  <h1 className="pr-8">{msg.text}</h1>
 
-      <button
-        onClick={() => speakText(msg.text)}
-        className="absolute bottom-2 right-2 text-gray-300 hover:text-white"
-      >
-        <RiVolumeUpLine className="w-4 h-4 sm:w-5 sm:h-5" />
-      </button>
+                  <button
+                    onClick={() => speakText(msg.text)}
+                    className="absolute bottom-2 right-2 text-gray-300 hover:text-white"
+                  >
+                    <RiVolumeUpLine className="w-4 h-4 sm:w-5 sm:h-5" />
+                  </button>
 
-    </div>
+                </div>
 
-  </div>
-)}
+              </div>
+            )}
 
 
 

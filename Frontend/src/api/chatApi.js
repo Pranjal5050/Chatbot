@@ -32,14 +32,39 @@ export const getChats = async () => {
 
 
 // delete chat
-export const deleteChat = async (id) => {
+
+export const deleteChatApi = async (id) => {
+
+  const token = localStorage.getItem("token")
 
   const res = await axios.delete(
-    `http://localhost:5000/api/chat/${id}`
+    `http://localhost:5000/api/chat/${id}`,
+    {
+      headers: {
+        Authorization: token
+      }
+    }
   )
 
   return res.data
+
 }
+
+
+
+
+
+
+// export const deleteChat = async (id) => {
+
+//   const res = await axios.delete(
+//     `http://localhost:5000/api/chat/${id}`
+//   )
+
+//   return res.data
+// }
+
+
 
 export const signupUser = async (userData) => {
 

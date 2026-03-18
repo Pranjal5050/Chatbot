@@ -70,3 +70,34 @@ export const getChats = async (req, res) => {
   res.json(chats)
 
 }
+
+
+export const deleteChat = async (req, res) => {
+
+  try {
+
+    const chatId = req.params.id
+
+    const chat = await Chat.findByIdAndDelete(chatId)
+
+    if (!chat) {
+
+      return res.status(404).json({
+        error: "Chat not found"
+      })
+
+    }
+
+    res.json({
+      message: "Chat deleted successfully"
+    })
+
+  } catch (error) {
+
+    res.status(500).json({
+      error: error.message
+    })
+
+  }
+
+}

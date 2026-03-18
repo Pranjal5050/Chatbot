@@ -327,7 +327,9 @@ const InputBox = () => {
 
     dispatch(addMessage(userMessage))
 
-    const token = localStorage.getItem("token")
+    const token = localStorage.getItem("token");
+
+
 
     try {
 
@@ -418,10 +420,10 @@ const InputBox = () => {
   return (
 
     // <div className="p-3 md:p-4 border-t border-gray-700 bg-[#0f172a]">
-    <div className="fixed bottom-3 left-0 right-0 bg-[#0f172a] p-1 md:p-4 z-40">
+    <div className="fixed bottom-0 left-0 right-0 bg-[#0f172a] p-1 md:p-4 z-40">
 
       {/* <div className="flex items-center gap-2 md:gap-3 max-w-3xl mx-auto"> */}
-       <div className="flex items-center gap-2 md:gap-3 max-w-3xl mx-auto">
+      <div className="flex items-center gap-2 md:gap-3 max-w-3xl mx-auto">
 
         {/* Image Upload */}
         <label className="cursor-pointer  px-3 py-2 rounded-lg hover:bg-gray-800">

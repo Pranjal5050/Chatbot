@@ -49,7 +49,7 @@ const Home = () => {
             >
 
                 {/* Top Bar */}
-                <div className="p-3 border-b border-gray-700">
+                <div className="p-3 border-b bg-black fixed flex w-full">
 
                     {!sidebarOpen && (
                         <button
@@ -59,7 +59,10 @@ const Home = () => {
                             ☰
                         </button>
                     )}
-
+                    {/* Title */}
+                    <h1 className="text-lg font-semibold text-center flex-1">
+                        Chatbot
+                    </h1>
                 </div>
 
                 {/* Chat area */}
