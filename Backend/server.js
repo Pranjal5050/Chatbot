@@ -3,7 +3,7 @@ import mongoose from "mongoose"
 import cors from "cors"
 
 import authRoutes from "./routes/authRoutes.js"
-import chatRoutes from "./routes/chatRoute.js"
+import chatRoutes from "./routes/chatRoutes.js"
 
 const app = express()
 

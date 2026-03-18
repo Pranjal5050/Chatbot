@@ -2,7 +2,12 @@ import mongoose from "mongoose"
 
 const messageSchema = new mongoose.Schema({
   role: String,
-  text: String
+  text: String,
+  
+  image: {
+    type: String,
+    default: null
+  },
 })
 
 const chatSchema = new mongoose.Schema({

@@ -36,7 +36,7 @@ const Home = () => {
 
     return (
 
-        <div className="flex h-screen bg-[#0f172a] text-white">
+        <div className="flex bg-[#0f172a] text-white min-h-screen flex-col flex-1 overflow-hidden relative">
 
             <Sidebar
                 sidebarOpen={sidebarOpen}
