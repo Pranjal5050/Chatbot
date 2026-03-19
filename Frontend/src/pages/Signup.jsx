@@ -1,106 +1,45 @@
-// import { useState } from "react"
-// import axios from "axios"
-// import { useNavigate } from "react-router-dom"
-
-// const Signup = () => {
-
-//   const navigate = useNavigate()
-
-//   const [form, setForm] = useState({
-//     name: "",
-//     email: "",
-//     password: ""
-//   })
-
-//   const handleChange = (e) => {
-
-//     setForm({
-//       ...form,
-//       [e.target.name]: e.target.value
-//     })
-
-//   }
-
-//   const handleSubmit = async (e) => {
-
-//     e.preventDefault()
-
-//     const res = await axios.post(
-//       "http://localhost:5000/api/auth/signup",
-//       form
-//     )
-
-//     localStorage.setItem("token", res.data.token)
-
-//     navigate("/")
-
-//   }
-
-//   return (
-
-//     <div className="h-screen flex items-center justify-center">
-
-//       <form
-//         onSubmit={handleSubmit}
-//         className="border p-6 rounded w-80"
-//       >
-
-//         <h2 className="text-xl mb-4">Signup</h2>
-
-//         <input
-//           name="name"
-//           placeholder="Name"
-//           className="border p-2 w-full mb-3"
-//           onChange={handleChange}
-//         />
-
-//         <input
-//           name="email"
-//           placeholder="Email"
-//           className="border p-2 w-full mb-3"
-//           onChange={handleChange}
-//         />
-
-//         <input
-//           name="password"
-//           type="password"
-//           placeholder="Password"
-//           className="border p-2 w-full mb-3"
-//           onChange={handleChange}
-//         />
-
-//         <button className="bg-black text-white w-full p-2">
-//           Signup
-//         </button>
-
-//       </form>
-
-//     </div>
-
-//   )
-
-// }
-
-// export default Signup
-
-
-
-
-
-
-
 import { useState } from "react"
 import { Link } from "react-router-dom"
+import axios from "axios"
+import { useNavigate } from "react-router-dom"
 
 const Signup = () => {
+  
+  const navigate = useNavigate()
 
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
+  const [loading, setLoading] = useState(false)
+  const [error ,setError] = useState("")
+ 
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    console.log({ name, email, password })
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    
+    setLoading(true)
+    setError("")
+
+      try {
+
+      const res = await axios.post(
+        "http://localhost:5000/api/auth/signup",
+        {name, email, password }
+      )
+
+      localStorage.setItem("token", res.data.token)
+
+      navigate("/")
+
+    } catch (err) {
+
+      setError("User ALready Exist")
+
+    }
+    setLoading(false)
+    setName('');
+    setEmail('');
+    setPassword('')
   }
 
   return (
@@ -133,6 +72,12 @@ const Signup = () => {
 
           <form onSubmit={handleSubmit} className="space-y-4">
 
+            {error && (
+              <p className="text-red-500 text-sm text-center">
+                {error}
+              </p>
+            )}
+
             {/* Name */}
             <input
               type="text"
@@ -164,7 +109,7 @@ const Signup = () => {
             <button
               className="w-full bg-black hover:bg-gray-900 text-white py-3 rounded-lg mt-2"
             >
-              Sign Up
+              {loading ? "Signing up..." : "Sign Up"}
             </button>
 
           </form>

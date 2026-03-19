@@ -95,7 +95,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
 
       {/* Logout */}
       <button
-        className="text-red-600 px-8 py-2 rounded cursor-pointer absolute top-2 right-0"
+        className="text-red-600 px-8 py-2 rounded cursor-pointer absolute top-2 right-0 z-50"
         onClick={() => {
           localStorage.removeItem("token")
           window.location.reload()

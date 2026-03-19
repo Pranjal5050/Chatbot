@@ -48,7 +48,7 @@ const Home = () => {
             >
 
                 {/* Top Bar */}
-                <div className="p-3 border-b bg-black fixed flex w-full z-50">
+                <div className="p-3 border-b bg-black fixed flex w-full z-40">
 
                     {!sidebarOpen && (
                         <button
