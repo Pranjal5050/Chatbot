@@ -13,7 +13,6 @@ import { getChats } from "../api/chatApi"
 const Home = () => {
 
     const [sidebarOpen, setSidebarOpen] = useState(false)
-    //test
     const dispatch = useDispatch()
 
     useEffect(() => {
@@ -49,7 +48,7 @@ const Home = () => {
             >
 
                 {/* Top Bar */}
-                <div className="p-3 border-b bg-black fixed flex w-full">
+                <div className="p-3 border-b bg-black fixed flex w-full z-50">
 
                     {!sidebarOpen && (
                         <button
@@ -66,7 +65,9 @@ const Home = () => {
                 </div>
 
                 {/* Chat area */}
-                <ChatWindow />
+                <div className="pt-14 flex-1 overflow-y-auto">
+                    <ChatWindow />
+                </div>
 
                 {/* Input */}
                 <InputBox />

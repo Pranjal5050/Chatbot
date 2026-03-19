@@ -94,13 +94,13 @@ import { Link } from "react-router-dom"
 
 const Signup = () => {
 
-  const [name,setName] = useState("")
-  const [email,setEmail] = useState("")
-  const [password,setPassword] = useState("")
+  const [name, setName] = useState("")
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log({name,email,password})
+    console.log({ name, email, password })
   }
 
   return (
@@ -138,7 +138,7 @@ const Signup = () => {
               type="text"
               placeholder="Full Name"
               value={name}
-              onChange={(e)=>setName(e.target.value)}
+              onChange={(e) => setName(e.target.value)}
               className="w-full p-3 rounded-lg bg-[#0f172a] border border-gray-700 text-white outline-none"
             />
 
@@ -147,7 +147,7 @@ const Signup = () => {
               type="email"
               placeholder="Email"
               value={email}
-              onChange={(e)=>setEmail(e.target.value)}
+              onChange={(e) => setEmail(e.target.value)}
               className="w-full p-3 rounded-lg bg-[#0f172a] border border-gray-700 text-white outline-none"
             />
 
@@ -156,7 +156,7 @@ const Signup = () => {
               type="password"
               placeholder="Password"
               value={password}
-              onChange={(e)=>setPassword(e.target.value)}
+              onChange={(e) => setPassword(e.target.value)}
               className="w-full p-3 rounded-lg bg-[#0f172a] border border-gray-700 text-white outline-none"
             />
 

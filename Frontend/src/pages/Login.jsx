@@ -142,7 +142,7 @@ const Login = () => {
               type="email"
               placeholder="Email"
               value={email}
-              onChange={(e)=>setEmail(e.target.value)}
+              onChange={(e) => setEmail(e.target.value)}
               className="w-full p-3 rounded-lg bg-[#0f172a] border border-gray-700 text-white outline-none"
             />
 
@@ -150,7 +150,7 @@ const Login = () => {
               type="password"
               placeholder="Password"
               value={password}
-              onChange={(e)=>setPassword(e.target.value)}
+              onChange={(e) => setPassword(e.target.value)}
               className="w-full p-3 rounded-lg bg-[#0f172a] border border-gray-700 text-white outline-none"
             />
 
