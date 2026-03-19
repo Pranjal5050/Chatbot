@@ -11,7 +11,10 @@ import chatRoutes from "./routes/chatRoutes.js"
 const app = express()
 
 app.use(cors({
-  origin: "https://chatbot-api-ai.netlify.app",
+  origin: [
+    "http://localhost:5173",
+    "https://chatbot-api-ai.netlify.app"
+  ],
   credentials: true
 }))
 app.use(express.json())

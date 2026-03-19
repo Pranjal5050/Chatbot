@@ -1,10 +1,9 @@
 import axios from "axios"
 
-// send message to AI
 export const sendMessageToAI = async (messages, chatId) => {
 
   const res = await axios.post(
-    "http://localhost:5000/api/chat",
+    `${import.meta.env.VITE_API_URL}/api/chat`,
     {
       messages,
       chatId
@@ -14,12 +13,10 @@ export const sendMessageToAI = async (messages, chatId) => {
   return res.data
 }
 
-// get all chats
-
 export const getChats = async () => {
 
   const res = await axios.get(
-    "http://localhost:5000/api/chats",
+    `${import.meta.env.VITE_API_URL}/api/chats`,
     {
       headers: {
         Authorization: localStorage.getItem("token")
@@ -30,15 +27,12 @@ export const getChats = async () => {
   return res.data
 }
 
-
-// delete chat
-
 export const deleteChatApi = async (id) => {
 
   const token = localStorage.getItem("token")
 
   const res = await axios.delete(
-    `http://localhost:5000/api/chat/${id}`,
+    `${import.meta.env.VITE_API_URL}/api/chat/${id}`,
     {
       headers: {
         Authorization: token
@@ -50,26 +44,10 @@ export const deleteChatApi = async (id) => {
 
 }
 
-
-
-
-
-
-// export const deleteChat = async (id) => {
-
-//   const res = await axios.delete(
-//     `http://localhost:5000/api/chat/${id}`
-//   )
-
-//   return res.data
-// }
-
-
-
 export const signupUser = async (userData) => {
 
   const res = await axios.post(
-    "http://localhost:5000/api/auth/signup",
+    `${import.meta.env.VITE_API_URL}/api/auth/signup`,
     userData
   )
 
@@ -80,7 +58,7 @@ export const signupUser = async (userData) => {
 export const loginUser = async (userData) => {
 
   const res = await axios.post(
-    "http://localhost:5000/api/auth/login",
+    `${import.meta.env.VITE_API_URL}/api/auth/login`,
     userData
   )
 

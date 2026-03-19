@@ -21,7 +21,7 @@ const Login = () => {
     try {
 
       const res = await axios.post(
-        "http://localhost:5000/api/auth/login",
+        `${import.meta.env.VITE_API_URL}/api/auth/login`,
         { email, password }
       )
 
@@ -46,7 +46,7 @@ const Login = () => {
       <div className="w-full max-w-md">
 
         {/* Top Section */}
-        <div className="bg-gradient-to-b from-gray-900 to-black rounded-t-3xl p-10 text-center">
+        <div className="bg-gradient-to-blue from-gray-900 to-black rounded-t-3xl p-10 text-center">
 
           <img
             src="https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg"

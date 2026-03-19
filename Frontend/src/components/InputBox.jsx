@@ -65,7 +65,7 @@ const InputBox = () => {
         formData.append("question", input)
 
         res = await axios.post(
-          "http://localhost:5000/api/chat-image",
+          `${import.meta.env.VITE_API_URL}/api/chat-image`,
           formData,
           {
             headers: {
@@ -84,7 +84,7 @@ const InputBox = () => {
         const updatedMessages = [...messages, userMessage]
 
         res = await axios.post(
-          "http://localhost:5000/api/chat",
+          `${import.meta.env.VITE_API_URL}/api/chat`,
           {
             messages: updatedMessages,
             chatId
