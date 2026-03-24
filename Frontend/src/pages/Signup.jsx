@@ -4,27 +4,27 @@ import axios from "axios"
 import { useNavigate } from "react-router-dom"
 
 const Signup = () => {
-  
+
   const navigate = useNavigate()
 
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [loading, setLoading] = useState(false)
-  const [error ,setError] = useState("")
- 
+  const [error, setError] = useState("")
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     setLoading(true)
     setError("")
 
-      try {
+    try {
 
       const res = await axios.post(
         `${import.meta.env.VITE_API_URL}/api/auth/signup`,
-        {name, email, password }
+        { name, email, password }
       )
 
       localStorage.setItem("token", res.data.token)
@@ -83,6 +83,7 @@ const Signup = () => {
               type="text"
               placeholder="Full Name"
               value={name}
+              required={true}
               onChange={(e) => setName(e.target.value)}
               className="w-full p-3 rounded-lg bg-[#0f172a] border border-gray-700 text-white outline-none"
             />
@@ -91,6 +92,7 @@ const Signup = () => {
             <input
               type="email"
               placeholder="Email"
+              required={true}
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className="w-full p-3 rounded-lg bg-[#0f172a] border border-gray-700 text-white outline-none"
@@ -101,6 +103,7 @@ const Signup = () => {
               type="password"
               placeholder="Password"
               value={password}
+              required={true}
               onChange={(e) => setPassword(e.target.value)}
               className="w-full p-3 rounded-lg bg-[#0f172a] border border-gray-700 text-white outline-none"
             />

@@ -9,7 +9,7 @@
 
 //     <div className="flex h-screen bg-[#0f172a] text-white">
 
-      
+
 
 //       <Home
 //         sidebarOpen={sidebarOpen}
