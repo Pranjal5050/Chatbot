@@ -32,6 +32,7 @@ import Signup from "./pages/Signup"
 
 import ProtectedRoute from "./components/ProtectedRoute"
 import PrivacyPolicy from "./pages/PrivacyPolicy"
+import About from "./pages/About"
 
 function App() {
 
