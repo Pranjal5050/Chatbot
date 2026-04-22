@@ -14,7 +14,7 @@ const ChatWindow = () => {
             Start a conversation
           </p>
         )}
-        
+
         {messages.map((msg, index) => (
 
           <div key={index} className="mb-6">
@@ -49,6 +49,9 @@ const ChatWindow = () => {
                   >
                     <RiVolumeUpLine className="w-4 h-4 sm:w-5 sm:h-5" />
                   </button>
+                  <p style="font-size:12px; color:gray;">
+                    This chatbot does not collect or store sensitive personal information.
+                  </p>
 
                 </div>
 

@@ -126,6 +126,9 @@ const Signup = () => {
             </Link>
 
           </p>
+          <p style="font-size:12px; color:gray;">
+            Your data is सुरक्षित and used only for authentication purposes.
+          </p>
 
         </div>
 

@@ -31,6 +31,7 @@ import Login from "./pages/Login"
 import Signup from "./pages/Signup"
 
 import ProtectedRoute from "./components/ProtectedRoute"
+import PrivacyPolicy from "./pages/PrivacyPolicy"
 
 function App() {
 
@@ -43,6 +44,8 @@ function App() {
         <Route path="/signup" element={<Signup />} />
 
         <Route path="/login" element={<Login />} />
+        <Route path="/privacy" element={<PrivacyPolicy />} />
+        <Route path="/about" element={<About />} />
 
         <Route
           path="/"

@@ -17,6 +17,16 @@ const InputBox = () => {
 
   const { messages, chatId } = useSelector((state) => state.chat)
 
+  if (!message || message.trim() === "") {
+    alert("Please enter a message");
+    return;
+  }
+
+  if (message.length > 200) {
+    alert("Message too long");
+    return;
+  }
+
   // Image Upload
   const handleImage = (e) => {
 
