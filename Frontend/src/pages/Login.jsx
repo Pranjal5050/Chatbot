@@ -119,7 +119,7 @@ const Login = () => {
 
           </p>
           <p style={{ fontSize: "12px", color: "gray" }}>
-            Your data is सुरक्षित and used only for authentication purposes.
+            Your data is Safe and used only for authentication purposes.
           </p>
 
         </div>
