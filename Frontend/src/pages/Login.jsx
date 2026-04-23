@@ -15,6 +15,11 @@ const Login = () => {
 
     e.preventDefault()
 
+    if (!email || !password) {
+      setError("All fields are required")
+      return
+    }
+
     setLoading(true)
     setError("")
 
@@ -31,11 +36,13 @@ const Login = () => {
 
     } catch (err) {
 
-      setError("Invalid email or password")
+      setError(err.response?.data?.message || "Login failed")
 
     }
 
-    setLoading(false)
+    finally {
+      setLoading(false)
+    }
 
   }
 
@@ -111,7 +118,7 @@ const Login = () => {
             </Link>
 
           </p>
-          <p style="font-size:12px; color:gray;">
+          <p style={{ fontSize: "12px", color: "gray" }}>
             Your data is सुरक्षित and used only for authentication purposes.
           </p>
 

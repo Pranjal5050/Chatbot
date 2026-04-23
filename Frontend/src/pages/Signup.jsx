@@ -33,7 +33,7 @@ const Signup = () => {
 
     } catch (err) {
 
-      setError("User ALready Exist")
+      setError(err.response?.data?.message || "Signup failed")
 
     }
     setLoading(false)
@@ -126,7 +126,7 @@ const Signup = () => {
             </Link>
 
           </p>
-          <p style="font-size:12px; color:gray;">
+          <p style={{ fontSize: "12px", color: "gray" }}>
             Your data is सुरक्षित and used only for authentication purposes.
           </p>
 
