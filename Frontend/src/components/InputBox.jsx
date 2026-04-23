@@ -17,16 +17,6 @@ const InputBox = () => {
 
   const { messages, chatId } = useSelector((state) => state.chat)
 
-  if (!message || message.trim() === "") {
-    alert("Please enter a message");
-    return;
-  }
-
-  if (message.length > 200) {
-    alert("Message too long");
-    return;
-  }
-
   // Image Upload
   const handleImage = (e) => {
 
@@ -46,6 +36,16 @@ const InputBox = () => {
   // Send Message
   const sendMessage = async () => {
 
+    if (!input || input.trim() === "") {
+      alert("Please enter a message");
+      return;
+    }
+
+    if (input.length > 200) {
+      alert("Message too long");
+      return;
+    }
+
     if ((!input.trim() && !image) || loading) return
 
     setLoading(true)
@@ -55,18 +55,12 @@ const InputBox = () => {
       text: input,
       image: image ? URL.createObjectURL(image) : null
     }
-
     dispatch(addMessage(userMessage))
-
     const token = localStorage.getItem("token");
-
-
-
     try {
 
       let res
 
-      // IMAGE CHAT
       if (image) {
 
         const formData = new FormData()
