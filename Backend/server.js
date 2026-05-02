@@ -1,51 +1,3 @@
-// import express from "express"
-// import dotenv from "dotenv"
-// dotenv.config()
-// import mongoose from "mongoose"
-// const helmet = require("helmet");
-// const rateLimit = require("express-rate-limit");
-// import cors from "cors"
-
-
-// import authRoutes from "./routes/authRoutes.js"
-// import chatRoutes from "./routes/chatRoutes.js"
-
-// const app = express()
-
-// // Security headers
-// app.use(helmet());
-// app.set("trust proxy", 1);
-// // Rate limiting
-// const limiter = rateLimit({
-//   windowMs: 15 * 60 * 1000,
-//   max: 100,
-//   message: "Too many requests, try again later"
-// });
-// app.use(limiter);
-
-// // CORS (IMPORTANT: apna frontend URL daalna)
-// app.use(cors({
-//   origin: "https://devchatai.netlify.app",
-//   methods: ["GET", "POST"],
-//   credentials: true
-// }));
-
-// app.options("*", cors({
-//   origin: "https://devchatai.netlify.app",
-//   credentials: true
-// }));
-// app.use(express.json())
-
-// mongoose.connect(process.env.MONGO_URI)
-
-// app.use("/api/auth", authRoutes)
-
-// app.use("/api", chatRoutes)
-
-// app.listen(5000, () => {
-//   console.log("Server running on port 5000")
-// })
-
 import express from "express";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
@@ -74,15 +26,27 @@ const limiter = rateLimit({
 });
 app.use(limiter);
 
-// 🌐 CORS (FIXED)
+// 🌐 CORS CONFIG (FIXED PROPERLY)
 const corsOptions = {
-  origin: "https://devchatai.netlify.app", // exact frontend URL
-  methods: ["GET", "POST", "PUT", "DELETE"],
+  origin: "https://devchatai.netlify.app",
   credentials: true
 };
 
 app.use(cors(corsOptions));
-app.options("*", cors(corsOptions)); // preflight fix
+
+// 🔥 HANDLE PREFLIGHT (NO MORE "*")
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "https://devchatai.netlify.app");
+  res.header("Access-Control-Allow-Credentials", "true");
+  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  res.header("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
+
+  if (req.method === "OPTIONS") {
+    return res.sendStatus(200);
+  }
+
+  next();
+});
 
 // 📦 Body parser
 app.use(express.json());
@@ -91,15 +55,15 @@ app.use(express.json());
 app.use("/api/auth", authRoutes);
 app.use("/api", chatRoutes);
 
-// 🛢️ MongoDB connect (with logs)
-mongoose.connect(process.env.MONGO_URI)
-  .then(() => console.log("MongoDB Connected ✅"))
-  .catch((err) => console.error("MongoDB Error ❌", err));
-
-// 🧪 Test route (important for debugging)
+// 🧪 Test route
 app.get("/", (req, res) => {
   res.send("API is running 🚀");
 });
+
+// 🛢️ MongoDB connect
+mongoose.connect(process.env.MONGO_URI)
+  .then(() => console.log("MongoDB Connected ✅"))
+  .catch((err) => console.error("MongoDB Error ❌", err));
 
 // 🚀 Server start
 const PORT = process.env.PORT || 5000;
